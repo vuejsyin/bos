@@ -1,10 +1,15 @@
 package com.xr.controller;
 
 
+
 import com.xr.entity.Rdentityresponsibility;
 import com.xr.entity.RespBean;
 import com.xr.entity.SysUser;
 import com.xr.service.RdentityresService;
+
+import com.xr.entity.RespBean;
+import com.xr.entity.SysUser;
+
 import com.xr.service.SysUserService;
 import com.xr.util.PoiUtils;
 import com.xr.util.ResponseResult;
@@ -38,8 +43,10 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+
     @Autowired
     private RdentityresService rdentityresService;
+
 
 
     @RequestMapping("info")
@@ -67,6 +74,10 @@ public class SysUserController {
                 roles = sysUserService.findUserRoles(loginUser.getUsername());
                 // 将信息存入到session
                 result.getData().put("roles",roles);
+
+
+                System.out.println(roles+"1234567");
+
                 result.getData().put("introduction",loginUser.getIntroduction());
                 result.getData().put("avatar",loginUser.getAvatar());
                 result.getData().put("name",loginUser.getUsername());
@@ -77,7 +88,6 @@ public class SysUserController {
 
 
     }
-
 
     @RequestMapping("login")
     @ApiOperation(value = "用户登录",notes = "用户登录")
@@ -110,122 +120,109 @@ public class SysUserController {
     @RequestMapping("list")
     @RequiresPermissions("user:list")
     @ApiOperation(value = "获得用户列表",notes = "获得用户列表")
-    public ResponseResult query(SysUser sysUser, Rdentityresponsibility rden,Integer page, Integer limit){
-
-        String username= sysUser.getUsername();
-        List<SysUser> list1 =sysUserService.selectpage(username,(page-1)*limit,limit);
-        List<SysUser> list = sysUserService.list(sysUser);
-        list2=list;
-        ResponseResult result = new ResponseResult();
-        result.getData().put("items",list1);
-        result.getData().put("total",list.size());
-        rden.setTitle("p");
-        List<Rdentityresponsibility> list3 = rdentityresService.selectRdentityres(rden);
-        System.out.println(list3);
-        return result;
+    public ResponseResult query(SysUser sysUser, Rdentityresponsibility rden,Integer page, Integer limit) {
+            String username = sysUser.getUsername();
+            List<SysUser> list1 = sysUserService.selectpage(username, (page - 1) * limit, limit);
+            List<SysUser> list = sysUserService.list(sysUser);
+            list2 = list;
+            ResponseResult result = new ResponseResult();
+            result.getData().put("items", list1);
+            result.getData().put("total", list.size());
+            rden.setTitle("p");
+            List<Rdentityresponsibility> list3 = rdentityresService.selectRdentityres(rden);
+            System.out.println(list3);
+            return result;
     }
 
-   @RequestMapping("add")
-   @RequiresPermissions("user:add")
-   @ApiOperation(value = "添加用户",notes = "添加用户")
-    public ResponseResult add(SysUser sysUser){
+    @RequestMapping("add")
+    @RequiresPermissions("user:add")
+    @ApiOperation(value = "添加用户", notes = "添加用户")
+    public ResponseResult add (SysUser sysUser){
+            //生成盐（部分，需要存入数据库中）
+            String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
+            //将原始密码加盐（上面生成的盐），并且用md5算法加密两次，将最后结果存入数据库中
+            String password = new Md5Hash(sysUser.getPassword(), salt, 2).toString();
+            sysUser.setSalt(salt);
+            sysUser.setPassword(password);
 
-       //生成盐（部分，需要存入数据库中）
-       String salt=new SecureRandomNumberGenerator().nextBytes().toHex();
-       //将原始密码加盐（上面生成的盐），并且用md5算法加密两次，将最后结果存入数据库中
-       String password = new Md5Hash(sysUser.getPassword(),salt,2).toString();
-       sysUser.setSalt(salt);
-       sysUser.setPassword(password);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-       java.util.Date time=null;
-       try {
-           time= sdf.parse(sdf.format(new Date()));
-       } catch (ParseException e) {
+            Date time = null;
 
-           e.printStackTrace();
-       }
-       //如果CreateTime为空，就给他赋值为当前时间
-        sysUser.setCreateTime(time);
-        sysUserService.insert(sysUser);
-        ResponseResult result =new ResponseResult();
-        result.getData().put("message","添加成功");
+            try {
+                time = sdf.parse(sdf.format(new Date()));
+            } catch (ParseException e) {
 
-        return result;
-   }
+                e.printStackTrace();
+            }
+            //如果CreateTime为空，就给他赋值为当前时间
+            sysUser.setCreateTime(time);
+            sysUserService.insert(sysUser);
+            ResponseResult result = new ResponseResult();
+            result.getData().put("message", "添加成功");
 
+            return result;
+        }
     @RequestMapping("update")
     @RequiresPermissions("user:update")
-    @ApiOperation(value = "修改用户",notes = "修改用户")
-    public ResponseResult update(SysUser sysUser){
+    @ApiOperation(value = "修改用户", notes = "修改用户")
+    public ResponseResult update (SysUser sysUser){
+            //生成盐（部分，需要存入数据库中）
+            String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
+            //将原始密码加盐（上面生成的盐），并且用md5算法加密两次，将最后结果存入数据库中
+            String password = new Md5Hash(sysUser.getPassword(), salt, 2).toString();
+            sysUser.setSalt(salt);
+            sysUser.setPassword(password);
 
-        //生成盐（部分，需要存入数据库中）
-        String salt=new SecureRandomNumberGenerator().nextBytes().toHex();
-        //将原始密码加盐（上面生成的盐），并且用md5算法加密两次，将最后结果存入数据库中
-        String password = new Md5Hash(sysUser.getPassword(),salt,2).toString();
-        sysUser.setSalt(salt);
-        sysUser.setPassword(password);
-
-        sysUserService.updateByPrimaryKey(sysUser);
-        ResponseResult result =new ResponseResult();
-        result.getData().put("message","修改成功");
-
-        return result;
-    }
+            sysUserService.updateByPrimaryKey(sysUser);
+            ResponseResult result = new ResponseResult();
+            result.getData().put("message", "修改成功");
+            return result;
+        }
 
     @RequestMapping("delete")
     @RequiresPermissions("user:delete")
-    @ApiOperation(value = "删除用户",notes = "删除用户")
-    public ResponseResult delete(Long id){
-
-
-        sysUserService.deleteByPrimaryKey(id);
-        ResponseResult result =new ResponseResult();
-        result.getData().put("message","删除成功");
-
-        return result;
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    public ResponseResult delete (Long id){
+            sysUserService.deleteByPrimaryKey(id);
+            ResponseResult result = new ResponseResult();
+            result.getData().put("message", "删除成功");
+            return result;
     }
 
 
     @RequestMapping("logout")
-    @ApiOperation(value = "注销用户",notes = "注销用户")
-    public ResponseResult logout(){
-        ResponseResult result = new ResponseResult();
-        Subject subject = SecurityUtils.getSubject();
-
-        // 只需调用shiro的logout方法就可以了
-        subject.logout();
-        return result;
+    @ApiOperation(value = "注销用户", notes = "注销用户")
+    public ResponseResult logout () {
+            ResponseResult result = new ResponseResult();
+            Subject subject = SecurityUtils.getSubject();
+            // 只需调用shiro的logout方法就可以了
+            subject.logout();
+            return result;
     }
-
 
 
     @RequestMapping("export")
     //ResponseEntity里面装了所有响应的数据
-    public ResponseEntity<byte[]> exportExcel() throws IOException {
+    public ResponseEntity<byte[]> exportExcel () throws IOException {
         return PoiUtils.exportJobLevelExcel(list2);
     }
 
 
     @RequestMapping("import")
-    public RespBean importData(MultipartFile file, HttpServletRequest req) throws IOException {
+    public RespBean importData (MultipartFile file, HttpServletRequest req) throws IOException {
         System.out.println("进入import方法");
         System.out.println(file);
+        List<SysUser> sysUsers = PoiUtils.parseFile2List(file);
+         for (SysUser sysUserss : sysUsers) {
+                System.out.println(sysUserss);
+         }
 
-
-        List<SysUser> sysUsers=PoiUtils.parseFile2List(file);
-
-        for (SysUser sysUserss : sysUsers) {
-            System.out.println(sysUserss);
-        }
-
-        //根据上传的职称级别信息文件，批量添加数据
-        if (sysUserService.addBatchSysUser(sysUsers)==1){
-            return RespBean.ok("批量导入成功！");
-        }else {
-            return RespBean.error("批量导入失败！");
-        }
+         //根据上传的职称级别信息文件，批量添加数据
+         if (sysUserService.addBatchSysUser(sysUsers) == 1) {
+                return RespBean.ok("批量导入成功！");
+         } else {
+                return RespBean.error("批量导入失败！");
+         }
     }
-
-
 }

@@ -12,7 +12,11 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+<<<<<<< HEAD
     url: jdbc:mysql://127.0.0.1:3306/bos
+=======
+    url: jdbc:mysql://127.0.0.1:3306/boss
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
   #  driver-class-name: com.mysql.cj.jdbc.Driver
   #  url: jdbc:mysql://127.0.0.1:3306/bos?serverTimezone=UTC
 

@@ -28,6 +28,7 @@
     </properties>
 
     <dependencies>
+<<<<<<< HEAD
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -41,6 +42,8 @@
             <version>4.1.3</version>
         </dependency>
 
+=======
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
         <!-- 更新代码自动重启 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

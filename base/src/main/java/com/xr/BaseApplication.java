@@ -11,4 +11,8 @@ public class BaseApplication {
     public static void main(String[] args) {
         SpringApplication.run(BaseApplication.class, args);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
 }

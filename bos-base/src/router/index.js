@@ -75,10 +75,18 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'dashboard',
+<<<<<<< HEAD
         meta: { title: '工作台', icon: 'dashboard', affix: true }
       }
     ]
   }
+=======
+        meta: { title: '党风廉政建设工作平台', icon: 'dashboard', affix: true }
+      }
+    ]
+  }
+
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
 ]
 
 /**
@@ -102,29 +110,46 @@ export const asyncRoutes = [
         path: 'user',
         component: () => import('@/views/sys/user'),
         name: 'user',
+<<<<<<< HEAD
         meta: { title: '用户管理',roles: ['admin','dev','test'] },
+=======
+        meta: { title: '员工管理',roles: ['admin','dev','test'] },
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
       },
       {
         path: 'role',
         component: () => import('@/views/sys/role'),
         name: 'role',
+<<<<<<< HEAD
         meta: { title: '角色管理',roles: ['admin'] },
+=======
+        meta: { title: '岗位管理',roles: ['admin'] },
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
       },
       {
         path: 'menu',
         component: () => import('@/views/sys/menu'),
         name: 'menu',
+<<<<<<< HEAD
         meta: { title: '菜单管理',roles: ['admin'] },
+=======
+        meta: { title: '权限管理',roles: ['admin'] },
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
       },
       {
         path: 'dept',
         component: () => import('@/views/sys/dept'),
         name: 'dept',
+<<<<<<< HEAD
         meta: { title: '部门管理',roles: ['admin'] },
+=======
+        meta: { title: '日志管理',roles: ['admin'] },
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
       }
     ]
   },
   {
+<<<<<<< HEAD
     path: '/liu',
     component: Layout,
     redirect: '/liu/ziliao',
@@ -133,11 +158,44 @@ export const asyncRoutes = [
     meta: {
       title: '廉政文化',
       icon: 'example',
+=======
+    path: '/a',
+    component: Layout,
+    redirect: '',
+
+    alwaysShow: true, // will always show the root menu
+    name: 'sys',
+    meta: {
+      title: '廉政教育',
+      icon: 'documentation',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
       {
         path: 'user',
+        component: () => import('@/views/sys/user'),
+        name: 'user',
+        meta: {title: '廉政教育', roles: ['admin', 'dev', 'test']},
+      }
+    ]
+  },
+
+  {
+    path: '/b',
+    component: Layout,
+    redirect: '/sys/user',
+    alwaysShow: true, // will always show the root menu
+    name: 'sys',
+    meta: {
+      title: '责任纪实',
+      icon: 'guide',
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'user',
+<<<<<<< HEAD
         component: () => import('@/views/liu/ziliao'),
         name: 'user',
         meta: { title: '资料集锦',roles: ['admin','dev','test','jijian'] },
@@ -150,6 +208,59 @@ export const asyncRoutes = [
       }
     ]
   },
+=======
+        component: () => import('@/views/sys/user'),
+        name: 'user',
+        meta: { title: '工作计划',roles: ['admin','dev','test'] },
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/sys/role'),
+        name: 'role',
+        meta: { title: '廉政谈话',roles: ['admin'] },
+      },
+      {
+        path: 'menu',
+        component: () => import('@/views/sys/menu'),
+        name: 'menu',
+        meta: { title: '主体责任',roles: ['admin'] },
+      }
+    ]
+  },
+
+  {
+    path: '/c',
+    component: Layout,
+    redirect: '/sys/user',
+    alwaysShow: true, // will always show the root menu
+    name: 'sys',
+    meta: {
+      title: '廉政文化',
+      icon: 'list',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/sys/user'),
+        name: 'user',
+        meta: { title: '资料集锦',roles: ['admin','dev','test'] },
+      },
+      {
+        path: '',
+        component: () => import('@/views/sys/role'),
+        name: 'role',
+        meta: { title: '清风文宛',roles: ['admin'] },
+      }
+
+    ]
+  },
+
+
+
+
+
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
   {
     path: '/record',
     component: Layout,

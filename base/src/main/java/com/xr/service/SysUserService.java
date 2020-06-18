@@ -39,7 +39,11 @@ public interface SysUserService {
     //查到后修改
     int updateByPrimaryKey(SysUser record);
 
+<<<<<<< HEAD
     List<SysUser> selectpage(String username,Integer page,Integer limit);
+=======
+    List<SysUser> selectpage(String username, Integer page, Integer limit);
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b
 
     public Integer addBatchSysUser(List<SysUser> s);
 

@@ -44,7 +44,6 @@ public interface SysUserMapper {
 
     List<SysUser> selectByExample(SysUserExample example);
 
-
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
     int updateByExample(@Param("record") SysUser record, @Param("example") SysUserExample example);
     int updateByPrimaryKeySelective(SysUser record);

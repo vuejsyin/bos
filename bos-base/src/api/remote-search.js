@@ -8,6 +8,7 @@ export function searchUser(name) {
   })
 }
 
+<<<<<<< HEAD
 export function transactionList(query) {
   return request({
     url: '/vue-element-admin/transaction/list',
@@ -15,3 +16,12 @@ export function transactionList(query) {
     params: query
   })
 }
+=======
+// export function transactionList(query) {
+//   return request({
+//     url: '/vue-element-admin/transaction/list',
+//     method: 'get',
+//     params: query
+//   })
+// }
+>>>>>>> 1e57ee5de058d604cdcb1ccdcf2ba7a059393b7b

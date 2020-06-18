@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("dept")
 public class SysDeptController {
+
+
+
+
     @Autowired
     private SysDeptService sysDeptService;
 
@@ -18,9 +22,13 @@ public class SysDeptController {
      */
     @RequestMapping("groupDept")
     public ResponseResult groupDept(){
+
+        System.out.println("进来了");
+
         ResponseResult result = new ResponseResult();
         result.getData().put("deptList",sysDeptService.getGroupDept());
       /*  System.out.println(sysDeptService.getGroupDept());*/
         return result;
     }
+
 }
