@@ -63,7 +63,7 @@ public class SysUserController {
                 // 将信息存入到session
                 result.getData().put("roles",roles);
 
-                System.out.println(roles);
+                System.out.println(roles+"角色");
                 result.getData().put("introduction",loginUser.getIntroduction());
                 result.getData().put("avatar",loginUser.getAvatar());
                 result.getData().put("name",loginUser.getUsername());
