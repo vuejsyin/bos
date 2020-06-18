@@ -6,10 +6,6 @@ import com.xr.entity.Rdentityresponsibility;
 import com.xr.entity.RespBean;
 import com.xr.entity.SysUser;
 import com.xr.service.RdentityresService;
-
-import com.xr.entity.RespBean;
-import com.xr.entity.SysUser;
-
 import com.xr.service.SysUserService;
 import com.xr.util.PoiUtils;
 import com.xr.util.ResponseResult;
@@ -121,7 +117,8 @@ public class SysUserController {
     @RequiresPermissions("user:list")
     @ApiOperation(value = "获得用户列表",notes = "获得用户列表")
     public ResponseResult query(SysUser sysUser, Rdentityresponsibility rden,Integer page, Integer limit) {
-            String username = sysUser.getUsername();
+        System.out.println("提交到分支");
+        String username = sysUser.getUsername();
             List<SysUser> list1 = sysUserService.selectpage(username, (page - 1) * limit, limit);
             List<SysUser> list = sysUserService.list(sysUser);
             list2 = list;
